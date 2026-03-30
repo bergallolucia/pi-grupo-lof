@@ -85,6 +85,19 @@ nav {
     width: 15%;
 }
 
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center; 
+}
+
+.logo-container img {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 @media(min-width: 765px){
     nav {
         grid-template-columns: 1fr;
