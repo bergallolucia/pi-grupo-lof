@@ -178,6 +178,33 @@ section h2 {
   background-color: #bde9dd;
 }
 
+/* FORMULARIO DE BUSQUEDA */
+.search-form {
+  display: flex;
+  margin: 30px 0 30px 0;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b7d8c8;
+  background-color: #ffffff;
+  color: #1f3b35;
+}
+
+/* BOTON DEL BUSCADOR */
+.search-form button {
+  background-color: #1f9d84;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.search-form button:hover {
+  background-color: #157a66;
+}
+
 /* RESPONSIVE */
     
 @media (max-width: 1200px) {
@@ -221,6 +248,14 @@ section h2 {
   .character-card img {
     height: 350px;
   }
+
+  .search-form {
+  flex-direction: column;
+}
+
+.search-form button {
+  width: 100%;
+}
 }
 
 @media (max-width: 480px) {

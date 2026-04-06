@@ -2,6 +2,7 @@ import React from "react";
 import SectionPopulares from "../Components/SectionPopulares/SectionPopulares"
 import SectionEnCartel from "../Components/SectionEnCartel/SectionEnCartel"
 import SearchForm from "../Components/SearchForm/SearchForm";
+
 function Home() {
   return (
     <main>
