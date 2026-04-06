@@ -1,12 +1,15 @@
 import React from "react";
 
-function SearchForm() {
-  return (
-    <form className="search-form">
-      <input type="text" placeholder="Buscar..." />
-      <button type="submit">Buscar</button>
-    </form>
-  );
+class SearchForm extends Component {
+  constructor(props) {
+    super(props); 
+    this.state = {
+      valor: "", 
+      tipo: "Pelicula"
+    };
+  }
+
+  
 }
 
 export default SearchForm;
