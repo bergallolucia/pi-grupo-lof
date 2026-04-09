@@ -35,7 +35,10 @@ class SectionSeriesPopulares extends Component {
       <section className="card-container">
         {this.state.series.length > 0 ? (
           this.state.series.map((serie) => {
-            return <Card key={serie.id} data={serie} tipo="tv" />;
+            return <Card 
+            key={serie.id} 
+            data={serie} 
+            tipo="tv" />;
           })
         ) : (
           <p>Cargando...</p>

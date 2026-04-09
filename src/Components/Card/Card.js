@@ -50,8 +50,7 @@ class Card extends Component {
                 <button onClick={() => this.cambio()}>
                     {this.state.textoBoton}
                 </button>
-
-                <Link to={`/detalle/pelicula/${data.id}`}>
+                <Link to={`/detalle/${this.props.tipo}/${this.props.data.id}`}>
                     Ir a detalle
                 </Link>
 
