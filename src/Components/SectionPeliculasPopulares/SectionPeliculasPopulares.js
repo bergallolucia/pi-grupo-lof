@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Card from "../Card/Card";
 
-class SectionEnCartel extends Component {
+class SectionPeliculasPopulares extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +12,7 @@ class SectionEnCartel extends Component {
   componentDidMount() {
     const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
 
-    fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`)
+    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
       .then(function(response) {
         return response.json();
       })
@@ -35,7 +35,10 @@ class SectionEnCartel extends Component {
       <section className="card-container">
         {this.state.peliculas.length > 0 ? (
           this.state.peliculas.map((pelicula) => {
-            return <Card key={pelicula.id} data={pelicula} tipo="movie" />;
+            return <Card 
+            key={pelicula.id} 
+            data={pelicula} 
+            tipo="movie" />;
           })
         ) : (
           <p>Cargando...</p>
@@ -45,4 +48,4 @@ class SectionEnCartel extends Component {
   }
 }
 
-export default SectionEnCartel;
+export default SectionPeliculasPopulares;

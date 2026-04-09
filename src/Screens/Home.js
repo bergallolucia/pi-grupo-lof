@@ -1,6 +1,6 @@
 import React from "react";
-import SectionPopulares from "../Components/SectionPopulares/SectionPopulares"
-import SectionEnCartel from "../Components/SectionEnCartel/SectionEnCartel"
+import SectionPeliculasPopulares from "../Components/SectionPeliculasPopulares/SectionPeliculasPopulares"
+import SectionSeriesPopulares from "../Components/SectionSeriesPopulares/SectionSeriesPopulares"
 import SearchForm from "../Components/SearchForm/SearchForm";
 
 function Home() {
@@ -9,12 +9,12 @@ function Home() {
       <SearchForm/>
       <section>
         <h1>Peliculas más populares</h1>
-        <SectionPopulares />
+        <SectionPeliculasPopulares />
       </section>
 
       <section>
-        <h1>Peliculas en cartel</h1>
-        <SectionEnCartel />
+        <h1>Series más populares</h1>
+        <SectionSeriesPopulares />
       </section>
     </main>
   )

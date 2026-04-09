@@ -1,28 +1,28 @@
 import React, { Component } from "react";
 import Card from "../Card/Card";
 
-class SectionPopulares extends Component {
+class SectionSeriesPopulares extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      peliculas: []
+      series: []
     };
   }
 
   componentDidMount() {
     const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
 
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
+    fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}`)
       .then(function(response) {
         return response.json();
       })
       .then((data) => {
-        let peliculasFiltradas = data.results.filter(function(item, idx) {
+        let seriesFiltradas = data.results.filter(function(item, idx) {
           return idx < 4;
         });
 
         this.setState({
-          peliculas: peliculasFiltradas
+          series: seriesFiltradas
         });
       })
       .catch(function(error) {
@@ -33,12 +33,9 @@ class SectionPopulares extends Component {
   render() {
     return (
       <section className="card-container">
-        {this.state.peliculas.length > 0 ? (
-          this.state.peliculas.map((pelicula) => {
-            return <Card 
-            key={pelicula.id} 
-            data={pelicula} 
-            tipo="movie" />;
+        {this.state.series.length > 0 ? (
+          this.state.series.map((serie) => {
+            return <Card key={serie.id} data={serie} tipo="tv" />;
           })
         ) : (
           <p>Cargando...</p>
@@ -48,4 +45,4 @@ class SectionPopulares extends Component {
   }
 }
 
-export default SectionPopulares;
+export default SectionSeriesPopulares;
