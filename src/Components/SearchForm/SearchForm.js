@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 
+
 class SearchForm extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ class SearchForm extends Component {
 evitarSubmit(event){
   event.preventDefault();
 
-  this.props.history.push(`/search?query=${this.state.valor}`);
+  this.props.history.push(`/search/${this.state.valor}`);
 }
 
   controlarCambios(event) {

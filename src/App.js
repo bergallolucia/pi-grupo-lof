@@ -12,6 +12,7 @@ import Register from "./Screens/Register";
 import Notfound from "./Screens/Notfound";
 import Favoritos from "./Screens/Favoritos";
 import Detalle from "./Screens/Detalle";
+import SearchResults from "./Screens/SearchResults";
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/register" component={Register}/> 
         <Route path="/favoritos" component={Favoritos}/> 
         <Route path="/detalle/:tipo/:id" component={Detalle}/>
+        <Route path="/search/:busqueda" component={SearchResults} />
         <Route path="/*" component={Notfound}/>  
       </Switch>
 
