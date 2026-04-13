@@ -257,6 +257,44 @@ section h2 {
   color: #355f56;
 }
 
+/* NOT FOUND */
+.notfound-main {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 50px 20px;
+  margin: 40px auto;
+  width: 80%;
+}
+
+.notfound-titulo {
+  color: #145c4c;
+}
+
+.notfound-subtitulo {
+  color: #145c4c;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.notfound-respuesta {
+  font-size: 20px;
+  color: #355f56;
+  margin-bottom: 30px;
+}
+
+.notfound-inicio {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #1f9d84;
+  color: white;
+  padding: 10px 20px;
+}
+
+.notfound-inicio:hover {
+  background-color: #157a66;
+}
+
+
 /* RESPONSIVE */
     
 @media (max-width: 1200px) {
@@ -321,6 +359,11 @@ section h2 {
 
 .detalle-info h1 {
   text-align: center;
+}
+
+.notfound-main {
+  width: 90%;
+  padding: 40px 20px;
 }
 
 }
