@@ -294,6 +294,59 @@ section h2 {
   background-color: #157a66;
 }
 
+.registro-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.form-register {
+    background-color: #eee;
+    border-radius: 4px;
+    padding: 20px;
+    width: 350px;
+}
+
+.form-register label {
+    display: block;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.form-register input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.form-register button {
+    width: 100%;
+    background-color: #1f9d84;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 0;
+    font-size: 1rem;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.tituloRegistro {
+  text-align: center;
+  color:   #1f9d84;
+
+}
 
 /* RESPONSIVE */
     
