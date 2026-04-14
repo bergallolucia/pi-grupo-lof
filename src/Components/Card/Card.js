@@ -38,10 +38,10 @@ class Card extends Component {
 
                 <img
                     src={`https://image.tmdb.org/t/p/w300${data.poster_path}`}
-                    alt={data.title}
+                    alt={data.title || data.name}
                 />
 
-                <h4>{data.title}</h4>
+                <h4>{data.title || data.name} </h4>
 
                 <p className={this.state.claseOculta}>
                     {data.overview}

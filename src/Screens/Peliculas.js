@@ -33,7 +33,7 @@ class Peliculas extends Component {
       .then(response => response.json())
       .then(data => {
 
-        let peliculasActuales = this.state.peliculas;
+        let peliculasActuales = this.state.peliculas; 
 
         data.results.map((pelicula) => {
           peliculasActuales.push(pelicula);
@@ -89,7 +89,6 @@ render() {
               <Card
                 key={pelicula.id}
                 data={pelicula}
-                tipo="movie"
               />
             );
           })

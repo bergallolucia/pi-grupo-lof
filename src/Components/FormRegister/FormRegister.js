@@ -80,6 +80,8 @@ class FormRegister extends Component {
                 let usuarioJson = JSON.stringify(usuarioParseado); 
 
                 localStorage.setItem("usuarios", usuarioJson); 
+
+                this.props.history.push("/login")
             } 
 
         }else {
@@ -87,6 +89,9 @@ class FormRegister extends Component {
             let usuarioJson = JSON.stringify(usuarioInicial); 
 
             localStorage.setItem("usuarios", usuarioJson); 
+
+                this.props.history.push("/login")
+
         }
 
         this.setState({ 
@@ -133,7 +138,7 @@ class FormRegister extends Component {
                     />
                 </label>
 
-                <button type="sbumit"> Crear cuenta </button>
+                <button type="submit"> Crear cuenta </button>
 
                 {this.state.error != "" ? <p className="error">{this.state.error}</p> : null}
 
