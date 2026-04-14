@@ -1,5 +1,8 @@
 import React from "react";
 import { Component } from "react";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 class FormRegister extends Component {
     constructor(props) {
@@ -81,6 +84,8 @@ class FormRegister extends Component {
 
                 localStorage.setItem("usuarios", usuarioJson); 
 
+                cookies.set("session", this.state.email, { path: "/" });
+
                 this.props.history.push("/login")
             } 
 
@@ -90,7 +95,7 @@ class FormRegister extends Component {
 
             localStorage.setItem("usuarios", usuarioJson); 
 
-                this.props.history.push("/login")
+            this.props.history.push("/login")
 
         }
 
@@ -131,7 +136,7 @@ class FormRegister extends Component {
                 <label>
                     Contraseña:
                     <input 
-                    type="text"
+                    type="password"
                     name="password"
                     value={this.state.password}
                     onChange={(event) => this.controlarCambiosP(event)} 

@@ -1,41 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 function Menu() {
-
-  const navIzq = [
-    { path: "/", name: "Home" },
-    { path: "/peliculas", name: "Películas" },
-    { path: "/series", name: "Series" },
-    { path: "/favoritos", name: "Favoritas" }
-  ];
-
-  const navDer = [
-    { path: "/register", name: "Registro" },
-    { path: "/login", name: "Login" }
-  ];
+  const cookies = new Cookies();
+  let sesion = cookies.get("session"); 
 
   return (
     <div className="main-nav">
 
       <ul className="nav-izq">
-        {navIzq.map((item, i) => (
-          <li key={i}>
-            <Link to={item.path}>{item.name}</Link>
+        <li> 
+          <Link to="/">Home</Link>
+        </li>
+
+        <li> 
+          <Link to="/peliculas">Películas</Link>
+        </li>
+
+        <li> 
+          <Link to="/series">Series</Link>
+        </li>
+
+        {sesion ? (
+          <li>
+            <Link to="/favoritos">Favoritos</Link>
           </li>
-        ))}
+        ) : null}
       </ul>
 
       <ul className="nav-der">
-        {navDer.map((item, i) => (
-          <li key={i}>
-            <Link to={item.path}>{item.name}</Link>
+        {sesion ? null : (
+          <div> 
+          <li> 
+            <Link to="/register">Crear cuenta</Link>
           </li>
-        ))}
-      </ul>
 
+          <li> 
+            <Link to="/login">Login</Link>
+          </li>
+          </div>
+        )}
+      </ul>
     </div>
   );
 }
 
-export default Menu;
+export default withRouter(Menu);

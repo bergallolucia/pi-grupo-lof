@@ -38,11 +38,13 @@ class Login extends Component {
                 usuarioFiltrado[0].password === this.state.password
               ) {
 
-                cookies.set("session", this.state.email);
+                cookies.set("session", this.state.email, { path: "/" });
 
                 this.setState({ error: "" });
 
                 alert("Login exitoso");
+
+                this.props.history.push("/");
 
               } else {
                 this.setState({
