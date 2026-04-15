@@ -7,19 +7,26 @@ class SearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: ""
+      valor: "", 
+      tipo: "movie"
     };
   }
 
 evitarSubmit(event){
   event.preventDefault();
 
-  this.props.history.push(`/search/${this.state.valor}`);
+  this.props.history.push(`/search/${this.state.tipo}/${this.state.valor}`);
 }
 
-  controlarCambios(event) {
+  controlarCambiosV(event) {
     this.setState({
       valor: event.target.value
+    });
+  }
+
+   controlarCambiosT(event) {
+    this.setState({
+      tipo: event.target.value
     });
   }
 
@@ -32,9 +39,18 @@ evitarSubmit(event){
         <input
           type="text"
           value={this.state.valor}
-          onChange={(event) => this.controlarCambios(event)}
+          onChange={(event) => this.controlarCambiosV(event)}
           placeholder="Buscar películas o series..."
         />
+
+        <select
+        value= {this.state.tipo}
+        onChange={(event) => this.controlarCambiosT(event)}>
+
+        <option value="movie">Películas</option>
+        <option value="tv">Series</option>
+        
+        </select>
         <button type="submit">Buscar</button>
       </form>
     );
