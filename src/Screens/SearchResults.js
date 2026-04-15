@@ -39,7 +39,7 @@ render () {
                     ))}
                 </section>
             ) : (
-                <p>Lo siento. No hay resultados para tu busqueda. </p>
+                <p>Lo siento. No hay resultados para tu búsqueda. </p>
             )}
         </main>
     );

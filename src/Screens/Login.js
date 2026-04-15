@@ -38,7 +38,7 @@ class Login extends Component {
                 usuarioFiltrado[0].password === this.state.password
               ) {
 
-                cookies.set("session", this.state.email, { path: "/" });
+                cookies.set("session", this.state.email);
 
                 this.setState({ error: "" });
 
