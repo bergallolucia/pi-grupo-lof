@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Cookies from "universal-cookie";
+import Loader from "../Components/Loader";
 
 const cookies = new Cookies();
 
@@ -46,7 +47,7 @@ class Detalle extends Component {
 
   render() {
     if (!this.state.detalle) {
-      return <p>Cargando...</p>;
+      return <Loader/>;
     }
 
     const data = this.state.detalle;

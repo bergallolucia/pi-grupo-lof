@@ -4,6 +4,7 @@ import SectionSeriesPopulares from "../Components/SectionSeriesPopulares/Section
 import SearchForm from "../Components/SearchForm/SearchForm";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
+import Loader from "../Components/Loader/Loader";
 
 const cookies = new Cookies();
 
