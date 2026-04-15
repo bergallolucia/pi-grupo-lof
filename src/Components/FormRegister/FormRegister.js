@@ -95,6 +95,8 @@ class FormRegister extends Component {
 
             localStorage.setItem("usuarios", usuarioJson); 
 
+            cookies.set("session", this.state.email);
+
             this.props.history.push("/login")
 
         }
