@@ -38,6 +38,7 @@ class Card extends Component {
         let favoritoNuevo = {
             id: this.props.data.id,
             tipo: this.props.tipo,
+            poster_path: this.state.detalle.poster_path,
             title: this.props.data.title,
             name: this.props.data.name
         };
