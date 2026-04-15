@@ -74,7 +74,7 @@ footer {
 
 /* CARD */
 .character-card {
-  width: 23%;
+  width: 25%;
   background-color: #ffffff;
   border-radius: 8px;
   padding: 12px;
@@ -111,7 +111,8 @@ section h2 {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-bottom: 40px;
 }
 
@@ -136,6 +137,7 @@ section h2 {
   font-size: 15px;
   color: #355f56;
   margin-bottom: 12px;
+  min-height: 90px;
 }
 
 /* CLASE PARA OCULTAR */
@@ -148,13 +150,41 @@ section h2 {
   background-color: #1f9d84;
   color: white;
   border: none;
-  padding: 10px 14px;
+  padding: 8px 10px;
+  font-size: 13px;
   margin-right: 10px;
-  font-size: 14px;
   border-radius: 6px;
 }
 
+
 .character-card button:hover {
+  background-color: #157a66;
+}
+
+.botones {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.botones button,
+.botones a {
+  margin-right: 10px;
+}
+
+.boton-favorito {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #145c4c;
+  border-radius: 6px;
+  padding: 7px 7px;
+  font-size: 15px;
+  color: red;
+  background-color: white;
+}
+
+.boton-favorito:hover {
   background-color: #157a66;
 }
 
@@ -164,9 +194,9 @@ section h2 {
   text-decoration: none;
   background-color: #d9f5ed;
   color: #145c4c;
-  padding: 10px 14px;
+  padding: 8px 10px;
+  font-size: 13px;
   border-radius: 6px;
-  font-size: 14px;
 }
 
 .character-card a:hover {
@@ -200,7 +230,7 @@ section h2 {
   background-color: #157a66;
 }
 
-/* HEADER DE CADA SECCION (titulo + boton) */
+/* HEADER DE CADA SECCION  */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -347,8 +377,6 @@ section h2 {
   color:   #1f9d84;
 
 }
-
-
 
 /* RESPONSIVE */
     

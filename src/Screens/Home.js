@@ -3,8 +3,14 @@ import SectionPeliculasPopulares from "../Components/SectionPeliculasPopulares/S
 import SectionSeriesPopulares from "../Components/SectionSeriesPopulares/SectionSeriesPopulares";
 import SearchForm from "../Components/SearchForm/SearchForm";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function Home() {
+  let session = cookies.get("session");
+  console.log("session:", session);
+  
   return (
     <main>
       <SearchForm/>

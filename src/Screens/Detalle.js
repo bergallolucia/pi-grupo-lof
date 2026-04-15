@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 class Detalle extends Component {
   constructor(props) {
@@ -22,6 +25,24 @@ class Detalle extends Component {
       })
       .catch((error) => console.log(error));
   }
+  guardarFavorito() {
+    let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+    let favoritoNuevo = {
+      id: this.state.detalle.id,
+      tipo: this.props.match.params.tipo,
+      poster_path: this.state.detalle.poster_path,
+      title: this.state.detalle.title,
+      name: this.state.detalle.name
+    };
+
+    let yaExiste = favoritos.filter( (fav) => fav.id === favoritoNuevo.id && fav.tipo === favoritoNuevo.tipo).length > 0;
+
+    if (!yaExiste) {
+      favoritos.push(favoritoNuevo);
+      localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    }
+  }
 
   render() {
     if (!this.state.detalle) {
@@ -29,6 +50,7 @@ class Detalle extends Component {
     }
 
     const data = this.state.detalle;
+    let session = cookies.get("session");
 
     return (
       <main>
@@ -58,8 +80,20 @@ class Detalle extends Component {
               <strong>Géneros:</strong>
               {data.genres && data.genres.map((g, i) => (
                 <span key={i}> {g.name} </span>
-              ))}
+
+                ))}
             </p>
+
+            {session ? (
+              <div className="detalle-favorito">
+                <button className="boton-favorito"
+                  onClick={() => this.guardarFavorito()}
+                >
+                  ❤️
+                </button>
+              </div>
+            ) : null}
+
           </article>
         </section>
       </main>
