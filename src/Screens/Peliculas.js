@@ -71,9 +71,11 @@ render() {
 
     return (
     <main>
-      <h1>Películas</h1>
+      <div className="section-header">
+  <h1>Películas</h1>
+</div>
 
-      <form>
+      <form className="search-form">
         <input
           type="text"
           value={this.state.filtro}

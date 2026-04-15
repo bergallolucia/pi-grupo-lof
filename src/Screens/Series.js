@@ -71,9 +71,11 @@ class Series extends Component {
 
     return (
       <main>
-        <h1>Series</h1>
+        <div className="section-header">
+  <h1>Series</h1>
+</div>
 
-        <form>
+        <form className="search-form">
           <input
             type="text"
             value={this.state.filtro}
