@@ -7,6 +7,7 @@ class Peliculas extends Component {
     super(props);
     this.state = {
       peliculas: [],
+      copiaPeliculas: [], 
       pagina: 1,
       filtro: ""
     };
@@ -19,7 +20,8 @@ class Peliculas extends Component {
       .then(response => response.json())
       .then((data) => {
         this.setState({
-          peliculas: data.results
+          peliculas: data.results,
+          copiaPeliculas: data.results 
         });
       })
       .catch(error => console.log(error));
@@ -33,14 +35,9 @@ class Peliculas extends Component {
       .then(response => response.json())
       .then(data => {
 
-        let peliculasActuales = this.state.peliculas; 
-
-        data.results.map((pelicula) => {
-          peliculasActuales.push(pelicula);
-        });
-
         this.setState({
-          peliculas: peliculasActuales,
+          peliculas: [...this.state.peliculas, ...data.results], // 👈 cambiado
+          copiaPeliculas: [...this.state.copiaPeliculas, ...data.results], // 👈 agregado
           pagina: nuevaPagina
         });
 
@@ -49,31 +46,23 @@ class Peliculas extends Component {
   }
 
   controlarFiltro(event) {
+    const valor = event.target.value;
+
     this.setState({
-      filtro: event.target.value
+      filtro: valor,
+      peliculas: this.state.copiaPeliculas.filter(pelicula =>
+        pelicula.title.toLowerCase().includes(valor.toLowerCase())
+      )
     });
   }
 
 render() {
 
-  let peliculasFiltradas = this.state.peliculas.filter((pelicula) => {
-
-    if (this.state.filtro === "") {
-      return true;
-    }
-
-    if (pelicula.title === this.state.filtro) {
-      return true;
-    }
-
-    return false;
-  });
-
     return (
     <main>
       <div className="section-header">
-  <h1>Películas</h1>
-</div>
+        <h1>Películas</h1>
+      </div>
 
       <form className="search-form">
         <input
@@ -85,8 +74,8 @@ render() {
       </form>
 
       <section className="card-container">
-        {peliculasFiltradas.length > 0 ? (
-          peliculasFiltradas.map((pelicula) => {
+        {this.state.peliculas.length > 0 ? (
+          this.state.peliculas.map((pelicula) => {
             return (
               <Card
                 key={pelicula.id}
