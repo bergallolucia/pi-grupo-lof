@@ -7,7 +7,7 @@ class Peliculas extends Component {
     super(props);
     this.state = {
       peliculas: [],
-      copiaPeliculas: [], 
+      copiaPeliculas: [],
       pagina: 1,
       filtro: ""
     };
@@ -21,7 +21,7 @@ class Peliculas extends Component {
       .then((data) => {
         this.setState({
           peliculas: data.results,
-          copiaPeliculas: data.results 
+          copiaPeliculas: data.results
         });
       })
       .catch(error => console.log(error));
@@ -36,8 +36,8 @@ class Peliculas extends Component {
       .then(data => {
 
         this.setState({
-          peliculas: [...this.state.peliculas, ...data.results], // 👈 cambiado
-          copiaPeliculas: [...this.state.copiaPeliculas, ...data.results], // 👈 agregado
+          peliculas: [...this.state.peliculas, ...data.results],
+          copiaPeliculas: [...this.state.copiaPeliculas, ...data.results],
           pagina: nuevaPagina
         });
 
@@ -49,52 +49,55 @@ class Peliculas extends Component {
     const valor = event.target.value;
 
     this.setState({
-      filtro: valor,
-      peliculas: this.state.copiaPeliculas.filter(pelicula =>
-        pelicula.title.toLowerCase().includes(valor.toLowerCase())
-      )
+      filtro: valor
+    }, () => {
+      this.setState({
+        peliculas: this.state.copiaPeliculas.filter(pelicula =>
+          pelicula.title.toLowerCase().includes(this.state.filtro.toLowerCase())
+        )
+      });
     });
   }
 
-render() {
+  render() {
 
     return (
-    <main>
-      <div className="section-header">
-        <h1>Películas</h1>
-      </div>
+      <main>
+        <div className="section-header">
+          <h1>Películas</h1>
+        </div>
 
-      <form className="search-form">
-        <input
-          type="text"
-          value={this.state.filtro}
-          onChange={(event) => this.controlarFiltro(event)}
-          placeholder="Filtrar películas..."
-        />
-      </form>
+        <form className="search-form">
+          <input
+            type="text"
+            value={this.state.filtro}
+            onChange={(event) => this.controlarFiltro(event)}
+            placeholder="Filtrar películas..."
+          />
+        </form>
 
-      <section className="card-container">
-        {this.state.peliculas.length > 0 ? (
-          this.state.peliculas.map((pelicula) => {
-            return (
-              <Card
-                key={pelicula.id}
-                data={pelicula}
-              />
-            );
-          })
-        ) : (
-          <p>No hay resultados</p>
-        )}
-      </section>
+        <section className="card-container">
+          {this.state.peliculas.length > 0 ? (
+            this.state.peliculas.map((pelicula) => {
+              return (
+                <Card
+                  key={pelicula.id}
+                  data={pelicula}
+                />
+              );
+            })
+          ) : (
+            <p>No hay resultados</p>
+          )}
+        </section>
 
-      <button onClick={() => this.cargarMas()}>
-        Cargar más
-      </button>
+        <button onClick={() => this.cargarMas()}>
+          Cargar más
+        </button>
 
-    </main>
-  );
-}
+      </main>
+    );
+  }
 }
 
 export default Peliculas;
