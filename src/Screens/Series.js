@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Card from "../Components/Card/Card";
 
 class Series extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +12,7 @@ class Series extends Component {
   }
 
   componentDidMount() {
-    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be" 
+    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
 
     fetch("https://api.themoviedb.org/3/tv/popular?api_key=" + apiKey + "&page=1")
       .then(response => response.json())
@@ -26,13 +25,12 @@ class Series extends Component {
   }
 
   cargarMas() {
-    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be"
+    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
     let nuevaPagina = this.state.pagina + 1;
 
     fetch("https://api.themoviedb.org/3/tv/popular?api_key=" + apiKey + "&page=" + nuevaPagina)
       .then(response => response.json())
       .then(data => {
-
         let seriesActuales = this.state.series;
 
         data.results.map((serie) => {
@@ -43,7 +41,6 @@ class Series extends Component {
           series: seriesActuales,
           pagina: nuevaPagina
         });
-
       })
       .catch(error => console.log(error));
   }
@@ -55,9 +52,7 @@ class Series extends Component {
   }
 
   render() {
-
     let seriesFiltradas = this.state.series.filter((serie) => {
-
       if (this.state.filtro === "") {
         return true;
       }
@@ -72,8 +67,8 @@ class Series extends Component {
     return (
       <main>
         <div className="section-header">
-  <h1>Series</h1>
-</div>
+          <h1>Series</h1>
+        </div>
 
         <form className="search-form">
           <input
@@ -103,7 +98,6 @@ class Series extends Component {
         <button onClick={() => this.cargarMas()}>
           Cargar más
         </button>
-
       </main>
     );
   }

@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import Card from "../Components/Card/Card";
 
 class Peliculas extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       peliculas: [],
-      copiaPeliculas: [],
       pagina: 1,
       filtro: ""
     };
@@ -20,8 +18,7 @@ class Peliculas extends Component {
       .then(response => response.json())
       .then((data) => {
         this.setState({
-          peliculas: data.results,
-          copiaPeliculas: data.results
+          peliculas: data.results
         });
       })
       .catch(error => console.log(error));
@@ -34,32 +31,38 @@ class Peliculas extends Component {
     fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey + "&page=" + nuevaPagina)
       .then(response => response.json())
       .then(data => {
+        let peliculasActuales = this.state.peliculas;
 
-        this.setState({
-          peliculas: [...this.state.peliculas, ...data.results],
-          copiaPeliculas: [...this.state.copiaPeliculas, ...data.results],
-          pagina: nuevaPagina
+        data.results.map((pelicula) => {
+          peliculasActuales.push(pelicula);
         });
 
+        this.setState({
+          peliculas: peliculasActuales,
+          pagina: nuevaPagina
+        });
       })
       .catch(error => console.log(error));
   }
 
   controlarFiltro(event) {
-    const valor = event.target.value;
-
     this.setState({
-      filtro: valor
-    }, () => {
-      this.setState({
-        peliculas: this.state.copiaPeliculas.filter(pelicula =>
-          pelicula.title.toLowerCase().includes(this.state.filtro.toLowerCase())
-        )
-      });
+      filtro: event.target.value
     });
   }
 
   render() {
+    let peliculasFiltradas = this.state.peliculas.filter((pelicula) => {
+      if (this.state.filtro === "") {
+        return true;
+      }
+
+      if (pelicula.title === this.state.filtro) {
+        return true;
+      }
+
+      return false;
+    });
 
     return (
       <main>
@@ -77,8 +80,8 @@ class Peliculas extends Component {
         </form>
 
         <section className="card-container">
-          {this.state.peliculas.length > 0 ? (
-            this.state.peliculas.map((pelicula) => {
+          {peliculasFiltradas.length > 0 ? (
+            peliculasFiltradas.map((pelicula) => {
               return (
                 <Card
                   key={pelicula.id}
@@ -94,7 +97,6 @@ class Peliculas extends Component {
         <button onClick={() => this.cargarMas()}>
           Cargar más
         </button>
-
       </main>
     );
   }
