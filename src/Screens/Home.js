@@ -10,7 +10,7 @@ const cookies = new Cookies();
 
 function Home() {
   let session = cookies.get("session");
-  console.log("session:", session);
+  console.log("session:", session); 
   
   return (
     <main>

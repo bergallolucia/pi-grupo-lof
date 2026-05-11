@@ -83,8 +83,8 @@ render() {
       </form>
 
       <section className="card-container">
-        {peliculasFiltradas.length > 0 ? (
-          peliculasFiltradas.map((pelicula) => {
+        {peliculasFiltradas.length > 0 ? ( 
+          peliculasFiltradas.map((pelicula) => { 
             return (
               <Card
                 key={pelicula.id}

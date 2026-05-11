@@ -3,11 +3,11 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+class Login extends Component { 
+  constructor(props) { 
+    super(props); 
 
-    this.state = {
+    this.state = { 
       email: "",
       password: "",
       error: ""
@@ -30,15 +30,15 @@ class Login extends Component {
               let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
               let usuarioFiltrado = usuarios.filter((user) => {
-                return user.email === this.state.email;
-              });
+                return user.email === this.state.email; 
+              }); 
 
               if (
                 usuarioFiltrado.length > 0 &&
                 usuarioFiltrado[0].password === this.state.password
               ) {
 
-                cookies.set("session", this.state.email);
+                cookies.set("session", this.state.email); 
 
                 this.setState({ error: "" });
 

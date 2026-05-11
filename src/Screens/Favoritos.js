@@ -12,7 +12,7 @@ class Favoritos extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     let session = cookies.get("session");
 
     if (!session) {
@@ -50,7 +50,7 @@ class Favoritos extends Component {
 
           <div className="card-container">
             {peliculasFavoritas.map((fav, idx) => (
-              <div className="character-card" key={idx}>
+              <div className="character-card" key={idx}> 
                 <img
                   src={`https://image.tmdb.org/t/p/w300${fav.poster_path}`}
                   alt={fav.title || fav.name}

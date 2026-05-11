@@ -13,8 +13,8 @@ class Detalle extends Component {
   }
 
   componentDidMount() {
-    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
-    const tipo = this.props.match.params.tipo;
+    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be"; 
+    const tipo = this.props.match.params.tipo; 
     const id = this.props.match.params.id;
 
     fetch(`https://api.themoviedb.org/3/${tipo}/${id}?api_key=${apiKey}`)
@@ -25,7 +25,7 @@ class Detalle extends Component {
         });
       })
       .catch((error) => console.log(error));
-  }
+  } 
   guardarFavorito() {
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
@@ -34,13 +34,13 @@ class Detalle extends Component {
       tipo: this.props.match.params.tipo,
       poster_path: this.state.detalle.poster_path,
       title: this.state.detalle.title,
-      name: this.state.detalle.name
+      name: this.state.detalle.name 
     };
 
     let yaExiste = favoritos.filter( (fav) => fav.id === favoritoNuevo.id && fav.tipo === favoritoNuevo.tipo).length > 0;
 
     if (!yaExiste) {
-      favoritos.push(favoritoNuevo);
+      favoritos.push(favoritoNuevo); 
       localStorage.setItem("favoritos", JSON.stringify(favoritos));
     }
   }
@@ -59,10 +59,10 @@ class Detalle extends Component {
           <img
             className="detalle-img"
             src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
-            alt={data.title || data.name}
+            alt={data.title || data.name} 
           />
 
-          <article className="detalle-info">
+          <article className="detalle-info"> 
             <h1>{data.title || data.name}</h1>
 
             <p><strong>Calificación:</strong> {data.vote_average}</p>

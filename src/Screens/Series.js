@@ -20,7 +20,7 @@ class Series extends Component {
       .then((data) => {
         this.setState({
           series: data.results
-        });
+        }); 
       })
       .catch(error => console.log(error));
   }
@@ -76,7 +76,7 @@ class Series extends Component {
         <form>
           <input
             type="text"
-            value={this.state.filtro}
+            value={this.state.filtro} 
             onChange={(event) => this.controlarFiltro(event)}
             placeholder="Filtrar series..."
           />
