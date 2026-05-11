@@ -1,86 +1,74 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-class Login extends Component { 
-  constructor(props) { 
-    super(props); 
+function Login(props) {
 
-    this.state = { 
-      email: "",
-      password: "",
-      error: ""
-    };
-  }
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-  render() {
     return (
       <main>
+        <h1 className="tituloRegistro">
+            Iniciar sesión
+        </h1>
+          <section className="registro-container">
+            <form
+              className="form-register"
+              onSubmit={(e) => {
+                e.preventDefault();
 
-        <h1 className="tituloRegistro">Iniciar sesión</h1>
+                  let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+                  let usuarioFiltrado = usuarios.filter((user) => {
+                    return user.email === email;
+                    });
 
-        <section className="registro-container">
+                    if (
+                      usuarioFiltrado.length > 0 &&
+                      usuarioFiltrado[0].password === password
+                    ) {
 
-          <form
-            className="form-register"
-            onSubmit={(e) => {
-              e.preventDefault();
+                      cookies.set("session", email);
+                      setError("");
+                      alert("Login exitoso");
+                      props.history.push("/");
 
-              let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+                    } else {
+                      setError("Credenciales incorrectas");
+                    }
 
-              let usuarioFiltrado = usuarios.filter((user) => {
-                return user.email === this.state.email; 
-              }); 
-
-              if (
-                usuarioFiltrado.length > 0 &&
-                usuarioFiltrado[0].password === this.state.password
-              ) {
-
-                cookies.set("session", this.state.email); 
-
-                this.setState({ error: "" });
-
-                alert("Login exitoso");
-
-                this.props.history.push("/");
-
-              } else {
-                this.setState({
-                  error: "Credenciales incorrectas"
-                });
-              }
-            }}
+                }}
           >
+                <label>Email:</label>
 
-            <label>Email:</label>
-            <input
-              type="email"
-              value={this.state.email}
-              onChange={(e) => this.setState({ email: e.target.value })}
-            />
+                  <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                  />
 
-            <label>Contraseña:</label>
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={(e) => this.setState({ password: e.target.value })}
-            />
+                  <label>Contraseña:</label>
 
-            <button type="submit">Ingresar</button>
+                  <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                  />
 
-            {this.state.error !== "" ? (
-              <p className="error">{this.state.error}</p>
-            ) : null}
+                  <button type="submit">
+                    Ingresar
+                  </button>
 
-          </form>
+                  {error !== "" ? (
+                      <p className="error">{error}</p>
+                  ) : null}
 
-        </section>
-
+            </form>
+          </section>
       </main>
     );
   }
-}
 
 export default Login;
