@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 function Menu() {
@@ -46,4 +46,4 @@ function Menu() {
   );
 }
 
-export default withRouter(Menu);
+export default (Menu);

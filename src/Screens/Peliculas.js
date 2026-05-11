@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Card from "../Components/Card/Card";
 
 class Peliculas extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -32,8 +31,7 @@ class Peliculas extends Component {
     fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey + "&page=" + nuevaPagina)
       .then(response => response.json())
       .then(data => {
-
-        let peliculasActuales = this.state.peliculas; 
+        let peliculasActuales = this.state.peliculas;
 
         data.results.map((pelicula) => {
           peliculasActuales.push(pelicula);
@@ -43,7 +41,6 @@ class Peliculas extends Component {
           peliculas: peliculasActuales,
           pagina: nuevaPagina
         });
-
       })
       .catch(error => console.log(error));
   }
@@ -54,22 +51,21 @@ class Peliculas extends Component {
     });
   }
 
-render() {
+  render() {
+    let peliculasFiltradas = this.state.peliculas.filter((pelicula) => {
+      if (this.state.filtro === "") {
+        return true;
+      }
 
-  let peliculasFiltradas = this.state.peliculas.filter((pelicula) => {
+      if (pelicula.title === this.state.filtro) {
+        return true;
+      }
 
-    if (this.state.filtro === "") {
-      return true;
-    }
-
-    if (pelicula.title === this.state.filtro) {
-      return true;
-    }
-
-    return false;
-  });
+      return false;
+    });
 
     return (
+<<<<<<< HEAD
     <main>
       <h1>Películas</h1>
 
@@ -104,6 +100,43 @@ render() {
     </main>
   );
 }
+=======
+      <main>
+        <div className="section-header">
+          <h1>Películas</h1>
+        </div>
+
+        <form className="search-form">
+          <input
+            type="text"
+            value={this.state.filtro}
+            onChange={(event) => this.controlarFiltro(event)}
+            placeholder="Filtrar películas..."
+          />
+        </form>
+
+        <section className="card-container">
+          {peliculasFiltradas.length > 0 ? (
+            peliculasFiltradas.map((pelicula) => {
+              return (
+                <Card
+                  key={pelicula.id}
+                  data={pelicula}
+                />
+              );
+            })
+          ) : (
+            <p>No hay resultados</p>
+          )}
+        </section>
+
+        <button onClick={() => this.cargarMas()}>
+          Cargar más
+        </button>
+      </main>
+    );
+  }
+>>>>>>> f13713a53409ef8146010bc36f89bad6348129f7
 }
 
 export default Peliculas;
