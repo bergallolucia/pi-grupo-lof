@@ -1,51 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
 
 
-class SearchForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      valor: "", 
-      tipo: "movie"
+function SearchForm(props) {
+  const [valor, setValor] = useState("");
+  const [tipo, setTipo] = useState("movie");
+
+const evitarSubmit = (event) => {
+  event.preventDefault();
+
+  props.history.push(`/search/${this.state.tipo}/${this.state.valor}`);
+}
+
+  const controlarCambiosV = (event) => {
+    setValor(event.target.value);
     };
   }
 
-evitarSubmit(event){
-  event.preventDefault();
-
-  this.props.history.push(`/search/${this.state.tipo}/${this.state.valor}`);
-}
-
-  controlarCambiosV(event) {
-    this.setState({
-      valor: event.target.value
-    });
-  }
-
-   controlarCambiosT(event) {
-    this.setState({
-      tipo: event.target.value
-    });
-  }
-
-  render() {
-    return (
-      <form
+  const controlarCambiosT = (event) => {
+    setTipo(event.target.value);
+    };
+  
+  return (
+      <form 
         className="search-form"
-        onSubmit={(event) => this.evitarSubmit(event)} 
+        onSubmit={evitarSubmit}
       >
         <input
           type="text"
-          value={this.state.valor}
-          onChange={(event) => this.controlarCambiosV(event)}
+          value={valor}
+          onChange={controlarCambiosV}
           placeholder="Buscar películas o series..."
         />
 
         <select
-        value= {this.state.tipo}
-        onChange={(event) => this.controlarCambiosT(event)}>
+        value= {tipo}
+        onChange={controlarCambiosT}>
 
         <option value="movie">Películas</option>
         <option value="tv">Series</option>
@@ -54,7 +45,5 @@ evitarSubmit(event){
         <button type="submit">Buscar</button>
       </form>
     );
-  }
-}
 
 export default withRouter(SearchForm);

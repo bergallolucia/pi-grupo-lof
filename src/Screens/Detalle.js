@@ -1,18 +1,13 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
 import Loader from "../Components/Loader/Loader";
 
 const cookies = new Cookies();
 
-class Detalle extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      detalle: null
-    };
-  }
+function Detalle(props) {
+  const [detalle, setDetalle] = useState(null);
 
-  componentDidMount() {
+  useEffect(() => {
     const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be"; 
     const tipo = this.props.match.params.tipo; 
     const id = this.props.match.params.id;
@@ -20,21 +15,20 @@ class Detalle extends Component {
     fetch(`https://api.themoviedb.org/3/${tipo}/${id}?api_key=${apiKey}`)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({
-          detalle: data
-        });
-      })
+        setDetalle(data);
+        })
       .catch((error) => console.log(error));
-  } 
-  guardarFavorito() {
+  } , []);
+  
+  const guardarFavorito = () => {
     let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
     let favoritoNuevo = {
-      id: this.state.detalle.id,
-      tipo: this.props.match.params.tipo,
-      poster_path: this.state.detalle.poster_path,
-      title: this.state.detalle.title,
-      name: this.state.detalle.name 
+      id: detalle.id,
+      tipo: match.params.tipo,
+      poster_path: detalle.poster_path,
+      title: detalle.title,
+      name: detalle.name 
     };
 
     let yaExiste = favoritos.filter( (fav) => fav.id === favoritoNuevo.id && fav.tipo === favoritoNuevo.tipo).length > 0;
@@ -43,14 +37,13 @@ class Detalle extends Component {
       favoritos.push(favoritoNuevo); 
       localStorage.setItem("favoritos", JSON.stringify(favoritos));
     }
-  }
+  };
 
-  render() {
-    if (!this.state.detalle) {
+  if (!detalle) {
       return <Loader/>;
     }
 
-    const data = this.state.detalle;
+    const data = detalle;
     let session = cookies.get("session");
 
     return (

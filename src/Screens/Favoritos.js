@@ -1,45 +1,35 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-class Favoritos extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      favoritos: []
-    };
-  }
+function Favoritos(props) {
+  const [favoritos, setFavoritos] = useState([]);
 
-  componentDidMount() { 
+  useEffect(() => { 
     let session = cookies.get("session");
 
     if (!session) {
-      this.props.history.push("/login");
+      props.history.push("/login");
     }
 
     let recuperoStorage = localStorage.getItem("favoritos");
     let favoritosRecuperados = JSON.parse(recuperoStorage) || [];
 
-    this.setState({
-      favoritos: favoritosRecuperados
-    });
-  }
+    setFavoritos(favoritosRecuperados); 
+    }, []);
 
-  borrarFavorito(id) {
-    let filtrados = this.state.favoritos.filter((fav) => fav.id !== id);
+  const borrarFavorito = (id) => {
+    let filtrados = favoritos.filter((fav) => fav.id !== id);
 
     localStorage.setItem("favoritos", JSON.stringify(filtrados));
 
-    this.setState({
-      favoritos: filtrados
-    });
-  }
-
-  render() {
-    let peliculasFavoritas = this.state.favoritos.filter((fav) => fav.tipo === "movie");
-    let seriesFavoritas = this.state.favoritos.filter((fav) => fav.tipo === "tv");
+    setFavoritos(filtrados); 
+    };
+  
+    let peliculasFavoritas = favoritos.filter((fav) => fav.tipo === "movie");
+    let seriesFavoritas = favoritos.filter((fav) => fav.tipo === "tv");
 
     return (
       <main>

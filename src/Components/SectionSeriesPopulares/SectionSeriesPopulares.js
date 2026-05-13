@@ -1,15 +1,10 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
 
-class SectionSeriesPopulares extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      series: []
-    };
-  }
+function SectionSeriesPopulares() {
+  const [series, setSeries] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
 
     fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}`)
@@ -21,8 +16,7 @@ class SectionSeriesPopulares extends Component {
           return idx < 4;
         });
 
-        this.setState({
-          series: seriesFiltradas
+        setSeries(seriesFiltradas)
         });
       })
       .catch(function(error) {
@@ -30,10 +24,9 @@ class SectionSeriesPopulares extends Component {
       });
   }
 
-  render() {
     return (
       <section className="card-container">
-        {this.state.series.length > 0 ? (
+        {series.length > 0 ? (
           this.state.series.map((serie) => {
             return <Card 
             key={serie.id} 
@@ -45,7 +38,5 @@ class SectionSeriesPopulares extends Component {
         )}
       </section>
     );
-  }
-}
-
+  
 export default SectionSeriesPopulares;
