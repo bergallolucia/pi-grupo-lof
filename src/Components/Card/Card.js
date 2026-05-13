@@ -1,46 +1,36 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-class Card extends Component {
+function Card(props) {
 
-    constructor(props) {
-        super(props);
+    const [mostrar, setMostrar] = useState(false);
+    const [textoBoton, setTextoBoton] = useState("Ver descripción");
+    const [claseOculta, setClaseOculta] = useState("oculta");
 
-        this.state = {
-            mostrar: false,
-            textoBoton: "Ver descripción",
-            claseOculta: "oculta"
-        };
-    }
-
-    cambio() {
-        if (this.state.mostrar) {
-            this.setState({
-                mostrar: false,
-                textoBoton: "Ver descripción",
-                claseOculta: "oculta"
-            });
+    function cambio() {
+        if (mostrar) {
+            setMostrar(false);
+            setTextoBoton("Ver descripción");
+            setClaseOculta("oculta");
         } else {
-            this.setState({
-                mostrar: true,
-                textoBoton: "Ocultar descripción",
-                claseOculta: ""
-            });
+            setMostrar(true);
+            setTextoBoton("Ocultar descripción");
+            setClaseOculta("");
         }
     }
 
-    guardarFavorito() {
+    function guardarFavorito() {
         let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
         let favoritoNuevo = {
-            id: this.props.data.id,
-            tipo: this.props.tipo,
-            poster_path: this.props.data.poster_path,
-            title: this.props.data.title,
-            name: this.props.data.name
+            id: props.data.id,
+            tipo: props.tipo,
+            poster_path: props.data.poster_path,
+            title: props.data.title,
+            name: props.data.name
         };
 
         let yaExiste = favoritos.filter(
@@ -53,49 +43,46 @@ class Card extends Component {
         }
     }
 
-    render() {
+    const data = props.data;
+    let session = cookies.get("session");
 
-        const data = this.props.data;
-        let session = cookies.get("session");
+    return (
+        <div className="character-card">
 
-        return (
-            <div className="character-card">
+            <img
+                src={`https://image.tmdb.org/t/p/w300${data.poster_path}`}
+                alt={data.title || data.name}
+            />
 
-                <img
-                    src={`https://image.tmdb.org/t/p/w300${data.poster_path}`}
-                    alt={data.title || data.name}
-                />
+            <h4>{data.title || data.name}</h4>
 
-                <h4>{data.title || data.name}</h4>
+            <p className={claseOculta}>
+                {data.overview}
+            </p>
 
-                <p className={this.state.claseOculta}>
-                    {data.overview}
-                </p>
+            <div className="botones">
 
-                <div className="botones">
+                <button onClick={() => cambio()}>
+                    {textoBoton}
+                </button>
 
-                    <button onClick={() => this.cambio()}>
-                        {this.state.textoBoton}
+                <Link to={`/detalle/${props.tipo}/${data.id}`}>
+                    Ir a detalle
+                </Link>
+
+                {session ? (
+                    <button
+                        className="boton-favorito"
+                        onClick={() => guardarFavorito()}
+                    >
+                        ❤️
                     </button>
-
-                    <Link to={`/detalle/${this.props.tipo}/${data.id}`}>
-                        Ir a detalle
-                    </Link>
-
-                    {session ? (
-                        <button
-                            className="boton-favorito"
-                            onClick={() => this.guardarFavorito()}
-                        >
-                            ❤️
-                        </button>
-                    ) : null}
-
-                </div>
+                ) : null}
 
             </div>
-        );
-    }
+
+        </div>
+    );
 }
 
 export default Card;

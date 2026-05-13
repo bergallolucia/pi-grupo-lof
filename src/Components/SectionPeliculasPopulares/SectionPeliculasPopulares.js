@@ -1,51 +1,45 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../Card/Card";
 
-class SectionPeliculasPopulares extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      peliculas: []
-    };
-  }
+function SectionPeliculasPopulares() {
+    const [peliculas, setPeliculas] = useState([]);
 
-  componentDidMount() {
-    const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
+    useEffect(() => {
+        const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
 
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
-      .then(function(response) {
-        return response.json();
-      })
-      .then((data) => {
-        let peliculasFiltradas = data.results.filter(function(item, idx) {
-          return idx < 4;
-        });
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
+            .then(function(response) {
+                return response.json();
+            })
+            .then((data) => {
+                let peliculasFiltradas = data.results.filter(function(item, idx) {
+                    return idx < 4;
+                });
+                setPeliculas(peliculasFiltradas);
+            })
+            .catch(function(error) {
+                console.log("El error fue: " + error);
+            });
+    }, []);
 
-        this.setState({
-          peliculas: peliculasFiltradas
-        });
-      })
-      .catch(function(error) {
-        console.log("El error fue: " + error);
-      });
-  }
-
-  render() {
     return (
-      <section className="card-container">
-        {this.state.peliculas.length > 0 ? (
-          this.state.peliculas.map((pelicula) => {
-            return <Card 
-            key={pelicula.id} 
-            data={pelicula} 
-            tipo="movie" />;
-          })
-        ) : (
-          <p>Cargando...</p>
-        )}
-      </section>
+        <section className="card-container">
+            {peliculas.length > 0 ? (
+                peliculas.map((pelicula) => {
+                    return (
+                        <Card
+                            key={pelicula.id}
+                            data={pelicula}
+                            tipo="movie"
+                        />
+                    );
+                })
+            ) : (
+                <p>Cargando...</p>
+            )}
+
+        </section>
     );
-  }
 }
 
 export default SectionPeliculasPopulares;

@@ -4,7 +4,6 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 function FormRegister(props) {
-
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,7 +23,7 @@ function FormRegister(props) {
             return;
         }
 
-        if (email == "") {
+        if (email === "") {
             setError("email mal escrito");
             return;
         }
@@ -105,7 +104,7 @@ function FormRegister(props) {
 
                 <button type="submit">Crear cuenta</button>
 
-                {error != "" ? <p className="error">{error}</p> : null}
+                {error !== "" ? <p className="error">{error}</p> : null}
 
             </form>
         </div>
