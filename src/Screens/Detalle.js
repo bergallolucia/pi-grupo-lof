@@ -93,6 +93,6 @@ function Detalle(props) {
       </main>
     );
   }
-}
+
 
 export default Detalle;

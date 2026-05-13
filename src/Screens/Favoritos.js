@@ -87,6 +87,6 @@ function Favoritos(props) {
       </main>
     );
   }
-}
+
 
 export default Favoritos;
