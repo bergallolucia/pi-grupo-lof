@@ -1,79 +1,72 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../Components/Card/Card";
 
-class Peliculas extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      peliculas: [],
-      pagina: 1,
-      filtro: ""
-    };
-  }
+function Peliculas() {
+  const [peliculas, setPeliculas] = useState([]); 
+  const [pagina, setPagina] = useState(1); 
+  const [filtro, setFiltro] = useState(""); 
 
-  componentDidMount() {
+  useEffect(()=> {
     const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
 
     fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey + "&page=1")
       .then(response => response.json())
       .then((data) => {
-        this.setState({
-          peliculas: data.results
-        });
-      })
+        setPeliculas(data.results); 
+        })
       .catch(error => console.log(error));
-  }
+  }, []);
 
-  cargarMas() {
+
+function cargarMas() {
     const apiKey = "8ec38789ad70cc9e9d12c6e963cc77be";
-    let nuevaPagina = this.state.pagina + 1;
+    let nuevaPagina = pagina + 1;
 
     fetch("https://api.themoviedb.org/3/movie/popular?api_key=" + apiKey + "&page=" + nuevaPagina)
       .then(response => response.json())
       .then(data => {
-        let peliculasActuales = this.state.peliculas;
+        let peliculasActuales = peliculas;
 
         data.results.map((pelicula) => {
           peliculasActuales.push(pelicula);
         });
 
-        this.setState({
-          peliculas: peliculasActuales,
-          pagina: nuevaPagina
-        });
+        setPeliculas(peliculasActuales); 
+        setPagina(nuevaPagina); 
       })
       .catch(error => console.log(error));
+}
+
+function controlarFiltro(event) {
+    setFiltro(event.target.value); 
+}
+
+
+let peliculasFiltradas = peliculas.filter((pelicula) => {
+  
+  if (filtro == "") {
+    return true; 
   }
 
-  controlarFiltro(event) {
-    this.setState({
-      filtro: event.target.value
-    });
+  if (pelicula.title == filtro) {
+    return true; 
   }
 
-  render() {
-    let peliculasFiltradas = this.state.peliculas.filter((pelicula) => {
-      if (this.state.filtro === "") {
-        return true;
-      }
+  return false;
 
-      if (pelicula.title === this.state.filtro) {
-        return true;
-      }
+});  
 
-      return false;
-    });
+return (
+  <main>
+    <div className="section-header">
+      <h1>Peliculas</h1>
+    </div>
 
-    return (
-<<<<<<< HEAD
-    <main>
-      <h1>Películas</h1>
-
-      <form>
+    <form>
         <input
           type="text"
-          value={this.state.filtro}
-          onChange={(event) => this.controlarFiltro(event)}
+          value={filtro}
+          onChange={(event) => controlarFiltro(event)}
           placeholder="Filtrar películas..."
         />
       </form>
@@ -93,50 +86,12 @@ class Peliculas extends Component {
         )}
       </section>
 
-      <button onClick={() => this.cargarMas()}>
+      <button onClick={() => cargarMas()}>
         Cargar más
       </button>
 
-    </main>
-  );
-}
-=======
-      <main>
-        <div className="section-header">
-          <h1>Películas</h1>
-        </div>
-
-        <form className="search-form">
-          <input
-            type="text"
-            value={this.state.filtro}
-            onChange={(event) => this.controlarFiltro(event)}
-            placeholder="Filtrar películas..."
-          />
-        </form>
-
-        <section className="card-container">
-          {peliculasFiltradas.length > 0 ? (
-            peliculasFiltradas.map((pelicula) => {
-              return (
-                <Card
-                  key={pelicula.id}
-                  data={pelicula}
-                />
-              );
-            })
-          ) : (
-            <p>No hay resultados</p>
-          )}
-        </section>
-
-        <button onClick={() => this.cargarMas()}>
-          Cargar más
-        </button>
-      </main>
-    );
-  }
->>>>>>> f13713a53409ef8146010bc36f89bad6348129f7
+  </main>
+); 
 }
 
 export default Peliculas;
